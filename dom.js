@@ -44,12 +44,25 @@ function showUser(myobj)
     parentElem.appendChild(childElem);
 
     deletebtn.addEventListener('click',function(){
+      const dId=myobj._id;
         axios
-         parentElem.removeChild(childElem); 
+          .delete(`https://crudcrud.com/api/31f3a3418bb54b16a711bbab1399b96b/appointmentData/${dId}`)
+          .then(()=>{
+                parentElem.removeChild(childElem);
+          })
+          .catch((err)=>console.log(err));
+         
     });
     editbtn.addEventListener('click',function(){
-         parentElem.removeChild(childElem); 
-         document.getElementById('name').value=myobj.name;
-         document.getElementById('email').value=myobj.email;
+      parentElem.removeChild(childElem);
+      document.getElementById('name').value=myobj.name;
+      document.getElementById('email').value=myobj.email;
+      const dId=myobj._id;
+      axios
+        .put(`https://crudcrud.com/api/31f3a3418bb54b16a711bbab1399b96b/appointmentData/${dId}`,myobj)
+        .then(response=>{
+          showUser(response.data);
+        })
+        .catch(err=>console.log(err));
     });
 }
