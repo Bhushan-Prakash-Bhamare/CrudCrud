@@ -18,6 +18,17 @@ function addData(e)
       })
       .catch(err=>console.log(err));
 }
+
+window.addEventListener("DOMContentLoaded",()=>{
+    axios
+        .get("https://crudcrud.com/api/31f3a3418bb54b16a711bbab1399b96b/appointmentData")
+        .then((response)=>{
+            for(var i=0;i<response.data.length;i++)
+              showUser(response.data[i]);
+        })
+        .catch((error)=>console.log(error));
+})
+
 function showUser(myobj)
 {
     var parentElem=document.getElementById('users');
@@ -33,6 +44,7 @@ function showUser(myobj)
     parentElem.appendChild(childElem);
 
     deletebtn.addEventListener('click',function(){
+        axios
          parentElem.removeChild(childElem); 
     });
     editbtn.addEventListener('click',function(){
